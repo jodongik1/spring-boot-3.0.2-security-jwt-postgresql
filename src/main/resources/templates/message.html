@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>message</title>
+</head>
+<body>
+Default : <sapn th:text="#{say.hello(${kor})}"></sapn> <br>
+kor : <sapn th:text="#{say.hello(${param.kor})}"></sapn> <br>
+eng : <sapn th:text="#{say.hello(${param.eng})}"></sapn> <br> 
+</body>
+<script> 
+	let kor = "[[${param.kor}]]";
+	console.log(kor);
+</script>
+</html>

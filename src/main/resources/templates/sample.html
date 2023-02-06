@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/node-jose@2.1.1/lib/index.min.js"></script>
+</head>
+<body>
+	<button id="btn">GET</button>
+	
+	<button id="btnPost">POST</button>
+	<h3>HEADER : </h3>
+	<div id="div_header"></div>
+	<h3>RESPONSE : </h3>
+	<div id="div_response"></div>
+	<script>
+		const button       = document.querySelector("#btn");
+		const btnPost      = document.querySelector("#btnPost");
+		const div_header   = document.querySelector("#div_header");
+		const div_response = document.querySelector("#div_response"); 
+
+		const exec = function(){
+		  axios.get('http://localhost:8080/api/request_param/map?id=1&email=jodongik.prj@gmail.com').then(
+		    (response) => {
+		      console.log(response)
+		      div_header.innerHTML=JSON.stringify(response.config.method)+"<br>";
+		      div_header.innerHTML+=JSON.stringify(response.config.headers)+"<br>";
+		      div_header.innerHTML+=JSON.stringify(response.config.url)+"<br>"; 
+		      div_response.innerHTML=JSON.stringify(response.data);
+		  }).catch(function (error) {
+		    // 에러 핸들링
+		    console.log(error);
+		  })
+		  .then(function () {
+		    // 항상 실행되는 영역
+		  });
+		}  
+		
+		const exec1 = function(){
+		  var bodyFormData = new FormData();
+		  bodyFormData.append('id', '1');
+		  bodyFormData.append('email', 'jodongik.prj@gmail.com');
+		  bodyFormData.append('isActive', 'true');
+		  bodyFormData.append('hobby', '독서');
+		  bodyFormData.append('hobby', '운동');
+		  bodyFormData.append('birthDay', 'Fred');
+ 	
+		  axios.post('http://localhost:8080/api/user',{
+			  headers: {
+			      'Content-type': 'application/x-www-form-urlencoded',
+			  },
+			  data:bodyFormData 
+		  }).then(
+		    (response) => {
+		      console.log(response)
+		      
+		      div_header.innerHTML=JSON.stringify(response.config.method)+"<br>";
+		      div_header.innerHTML+=JSON.stringify(response.config.headers)+"<br>";
+		      div_header.innerHTML+=JSON.stringify(response.config.url)+"<br>"; 
+		      div_response.innerHTML=JSON.stringify(response.data);
+		  }).catch(function (error) {
+		    // 에러 핸들링
+		    console.log(error);
+		  })
+		  .then(function () {
+		    // 항상 실행되는 영역
+		  });
+		}
+		
+		button.addEventListener("click", exec);
+		btnPost.addEventListener("click", exec1);
+		 
+		keystore = JWS.createKeyStore();
+		output = keystore.toJSON();
+		console.log(output);
+		
+	</script>
+</body> 
+</html>
